@@ -65,7 +65,11 @@ public class Movement : MonoBehaviour
 
     void Decelerate()
     {
-        // interpolate velocity
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, lerpRate)*Time.fixedDeltaTime;
+        // isolate y-velocity
+        Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        // interpolate
+        horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, lerpRate * Time.fixedDeltaTime);
+        // apply new velocity
+        rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
     }
 }
