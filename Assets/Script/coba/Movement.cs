@@ -1,32 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rigidbody;
-    public float MovementSpeed{ get; set;}
+    Rigidbody rb;
+    [SerializeField] private float force=1;
+    [SerializeField] private float maxSpeed=1;
+    [SerializeField]private float lerpRate=1;
+
+    float horizontalAxis;
+    float verticalAxis;
+    bool inputPresent;
+    
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalAxis = Input.GetAxisRaw("Horizontal");
-        float verticalAxis = Input.GetAxisRaw("Vertical");
+        horizontalAxis = Input.GetAxisRaw("Horizontal");
+        verticalAxis = Input.GetAxisRaw("Vertical");
         
-        if (horizontalAxis != 0 || verticalAxis != 0)
+        if (Mathf.Abs(horizontalAxis) > 0.1f || Mathf.Abs(verticalAxis) > 0.1f)
+        {
+            inputPresent = true;
+        }else
+        {
+            inputPresent = false;
+        }
+        Debug.Log("input present: "+inputPresent);
+
+    }
+
+    void FixedUpdate() {
+        if (inputPresent)
         {
             Walk(horizontalAxis, verticalAxis);
+        }else
+        {
+            Decelerate();
         }
     }
 
-    void Walk(float xVector,float zVector)
+    void Walk(float xAxis,float zAxis)
     {
-        rigidbody.velocity = new Vector3(xVector, 0, zVector);
+        // traditional velocity imposer
+        // rigidbody.velocity = new Vector3(xVector, 0, zVector);
+
+        Debug.Log("xAxis: " + xAxis + " zAxis: " + zAxis);
+        // direction of vector 
+        Vector3 forceDir = new Vector3(xAxis, 0, zAxis);
+
+        // add force to rigidbody
+        rb.AddForce(forceDir * force, ForceMode.Force);
+
+        // speed cap
+        if (rb.velocity.magnitude > maxSpeed)
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+    }
+
+    void Decelerate()
+    {
+        // interpolate velocity
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, lerpRate)*Time.fixedDeltaTime;
     }
 }
