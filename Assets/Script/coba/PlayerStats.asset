@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   baseSpeed: 100
-  baseAttack: 100
+  baseAttack: 5
   baseDefense: 1
