@@ -6,44 +6,20 @@ using UnityEngine;
 public class SOEntityStats : ScriptableObject
 {
     // ================= PROPERTIES =================
-    [SerializeField] private float health = 0;
-    [SerializeField] private float speed = 0;
-    [SerializeField] private float attack = 0;
-    [SerializeField] private float defense = 0;
+    [SerializeField] private float baseHealth = 10;
+    [SerializeField] private float baseSpeed = 10;
+    [SerializeField] private float baseAttack = 10;
+    [SerializeField] private float baseDefense = 10;
 
 // ============ GETTERS & SETTERS =================
-    public float Health
-    {
-        get { return health; }
-        set { health = value; }
-    }
-
-    public float Speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
-
-    public float Attack
-    {
-        get { return attack; }
-        set { attack = value; }
-    }
-
-    public float Defense
-    {
-        get { return defense; }
-        set { defense = value; }
-    }
+    public float BaseHealth => baseHealth;
+    public float BaseSpeed => baseSpeed;
+    public float BaseAttack => baseAttack;
+    public float BaseDefense => baseDefense;
 
     // ==================== METHODS =================
-    public void TakeDamage(float damageTaken)
+    public float CalculateDamage(float rawDamage)
     {
-        health = health-=damageTaken;
-    }
-
-    public void HealUp(float healAmount)
-    {
-        health = health+=healAmount;
+        return Mathf.Max(0, rawDamage - baseDefense);
     }
 }

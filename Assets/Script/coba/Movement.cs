@@ -5,9 +5,10 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] private float force=1;
-    [SerializeField] private float maxSpeed=1;
-    [SerializeField]private float lerpRate=1;
+    [SerializeField] Animator animator;
+    [SerializeField] private float forceOfWalking=100;
+    [SerializeField] private float maxSpeed=10;
+    [SerializeField]private float lerpRate=5.6f;
 
     float horizontalAxis;
     float verticalAxis;
@@ -33,7 +34,6 @@ public class Movement : MonoBehaviour
             inputPresent = false;
         }
         Debug.Log("input present: "+inputPresent);
-
     }
 
     void FixedUpdate() {
@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour
         Vector3 forceDir = new Vector3(xAxis, 0, zAxis);
 
         // add force to rigidbody
-        rb.AddForce(forceDir * force, ForceMode.Force);
+        rb.AddForce(forceDir * forceOfWalking, ForceMode.Force);
 
         // speed cap
         if (rb.velocity.magnitude > maxSpeed)
