@@ -489,7 +489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  playerStats: {fileID: 153144669}
   attackForce: 0.1
   detectionSphere: {fileID: 1599703782}
   targetLayerMask:
@@ -520,9 +519,9 @@ GameObject:
   - component: {fileID: 563715170}
   - component: {fileID: 563715169}
   - component: {fileID: 563715168}
-  - component: {fileID: 563715167}
   - component: {fileID: 563715165}
   - component: {fileID: 563715164}
+  - component: {fileID: 563715171}
   m_Layer: 3
   m_Name: Capsule (1)
   m_TagString: Untagged
@@ -580,26 +579,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &563715167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563715163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9419156da9b3c5744981e15712bf250c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  playerStats: {fileID: 563715168}
-  attackForce: 0
-  detectionSphere: {fileID: 102194030}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  detectionRadius: 1.14
 --- !u!114 &563715168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +660,32 @@ Transform:
   - {fileID: 102194030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &563715171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563715163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da61404310c9f04fb826f98006cab6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  attackForce: 0
+  detectionSphere: {fileID: 0}
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  detectionRadius: 0
+  playerTransform: {fileID: 0}
+  attackRange: 0
+  phase2Threshold: 0.6
+  phase3Threshold: 0.3
+  slashDamagePhase1: 10
+  slashDamagePhase2: 20
+  slashDamagePhase3: 30
 --- !u!1 &1599703781
 GameObject:
   m_ObjectHideFlags: 0
