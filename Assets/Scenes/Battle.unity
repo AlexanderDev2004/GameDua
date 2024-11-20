@@ -489,12 +489,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  attackForce: 0.1
+  attackForce: 1
   detectionSphere: {fileID: 1599703782}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 8
   detectionRadius: 1.14
+  entityStats: {fileID: 153144669}
 --- !u!114 &153144669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,9 +520,9 @@ GameObject:
   - component: {fileID: 563715170}
   - component: {fileID: 563715169}
   - component: {fileID: 563715168}
+  - component: {fileID: 563715171}
   - component: {fileID: 563715165}
   - component: {fileID: 563715164}
-  - component: {fileID: 563715171}
   m_Layer: 3
   m_Name: Capsule (1)
   m_TagString: Untagged
@@ -679,13 +680,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectionRadius: 0
+  entityStats: {fileID: 563715168}
   playerTransform: {fileID: 0}
   attackRange: 0
   phase2Threshold: 0.6
   phase3Threshold: 0.3
-  slashDamagePhase1: 10
-  slashDamagePhase2: 20
-  slashDamagePhase3: 30
+  attackPhase2Multiplier: 2
+  attackPhase3Multiplier: 3
 --- !u!1 &1599703781
 GameObject:
   m_ObjectHideFlags: 0

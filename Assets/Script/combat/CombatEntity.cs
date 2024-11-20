@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public abstract class CombatEntity : MonoBehaviour
@@ -10,31 +8,47 @@ public abstract class CombatEntity : MonoBehaviour
     [SerializeField] protected Animator animator;
     [SerializeField] protected float attackForce;
     [Header("Attack Config")]
-    private float attackSpeed; // attack per time
-    private float nextAttackTime = 0; // next second of attack
+    
+    private float nextAttackTime; // next second of attack
     [SerializeField] protected Transform detectionSphere;
     [SerializeField] protected LayerMask targetLayerMask;
     [SerializeField] protected float detectionRadius;
 
-    protected EntityStats entityStats;
+    [SerializeField] protected EntityStats entityStats;
     protected Rigidbody rb;
     protected Collider[] detectedColliders;
 
     protected virtual void Start()
     {
+        if (entityStats == null)
+        {
+            Debug.LogError($"EntityStats is not assigned on: {gameObject.name}");
+        }
+        if (entityStats.CurrentAttack <= 0)
+        {
+            Debug.LogError($"EntityStats.CurrentAttack is not valid on: {gameObject.name}");
+        }
         if (detectionSphere == null)
         {
             Debug.LogError("DetectionSphere is not assigned on: " + gameObject.name);
         }
 
-        entityStats = GetComponent<EntityStats>();
         rb = GetComponent<Rigidbody>();
 
-        attackSpeed = entityStats.AttackSpeed;
+        
+        if (entityStats.AttackSpeed <= 0)
+        {
+            Debug.LogError($"{gameObject.name} has invalid entityStats.AttackSpeed: {entityStats.AttackSpeed}. Setting default to 1.");
+            entityStats.AttackSpeed = 1f;
+        }
+        nextAttackTime = 0;
     }
 
     protected virtual void Update()
     {
+        Debug.Log($"{gameObject.name} Cooldown: {nextAttackTime - Time.time}");
+        Debug.Log($"{gameObject.name} Health: {entityStats.CurrentHealth}");
+
 
         if (entityStats.CurrentHealth <= 0)
         {
@@ -76,7 +90,8 @@ public abstract class CombatEntity : MonoBehaviour
         }
         
         // calculating next second of attack
-        nextAttackTime = Time.time + 1f / attackSpeed;
+        Debug.Log($"{nextAttackTime} is updated.");
+        nextAttackTime = Time.time + 1f / entityStats.AttackSpeed;
 
     }
 

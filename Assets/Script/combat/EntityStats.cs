@@ -8,10 +8,10 @@ public class EntityStats : MonoBehaviour
     public float BaseHealth{get; private set;}
     public float Speed{get; private set;}
     public float CurrentAttack{get; private set;}
-    public float AttackSpeed{get; private set;}
+    public float AttackSpeed{get; set;}
     public float AttackForce{get; private set;}
 
-    private void Start()
+    private void Awake()
     {
         // value that can change at runtime should be initialized in this class
         CurrentHealth = statsTemplate.BaseHealth;
@@ -44,5 +44,11 @@ public class EntityStats : MonoBehaviour
     {
         CurrentAttack += amount;
         Debug.Log($"Modified Attack by {amount}. Current Attack: {CurrentAttack}");
+    }
+
+    public void ModifySpeed(float amount) // for buff or debuff | put negative amount for debuff
+    {
+        Speed += amount;
+        Debug.Log($"Modified Speed by {amount}. Current Speed: {Speed}");
     }
 }

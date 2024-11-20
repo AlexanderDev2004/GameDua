@@ -11,7 +11,6 @@ public abstract class EnemyCombat : CombatEntity
 
     [Header("Enemy Config")]
     [SerializeField] protected Transform playerTransform;
-    // [SerializeField] protected float chaseSpeed;
     [SerializeField] protected float attackRange;
 
     [SerializeField] protected float phase2Threshold = 0.6f;
@@ -50,11 +49,18 @@ public abstract class EnemyCombat : CombatEntity
     }
 
     // Tambahkan logika AI untuk enemy
-    protected override void Update()
+    protected virtual void Update()
     {
         base.Update();
-
         CheckPhaseChange();
+
+        // Pengejaran
+        if (playerTransform != null)
+        {
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            rb.velocity = direction * entityStats.Speed;
+        }
+
         switch (currentPhase)
         {
             case EnemyPhase.Phase1:
@@ -68,13 +74,12 @@ public abstract class EnemyCombat : CombatEntity
                 break;
         }
 
-        // Logika AI untuk menyerang player
         if (detectedColliders.Length > 0)
         {
-            Debug.Log($"{gameObject.name} attacking player");
             Attack(detectedColliders);
         }
     }
+
 
     protected abstract void ExecutePhase1Behaviour();
     protected abstract void ExecutePhase2Behaviour();

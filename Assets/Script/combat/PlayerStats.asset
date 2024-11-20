@@ -15,6 +15,6 @@ MonoBehaviour:
   baseHealth: 100
   baseSpeed: 100
   baseDefense: 1
-  baseAttack: 3.47
-  attackSpeed: 95.48
-  attackForce: 10
+  baseAttack: 30
+  attackSpeed: 1
+  attackForce: 100
