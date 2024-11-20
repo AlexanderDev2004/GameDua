@@ -5,13 +5,22 @@ public class EntityStats : MonoBehaviour
 {
     [SerializeField] private SOEntityStats statsTemplate;
     public float CurrentHealth{get;private set;}
+    public float BaseHealth{get; private set;}
+    public float Speed{get; private set;}
     public float CurrentAttack{get; private set;}
+    public float AttackSpeed{get; private set;}
+    public float AttackForce{get; private set;}
 
     private void Start()
     {
         // value that can change at runtime should be initialized in this class
         CurrentHealth = statsTemplate.BaseHealth;
+        BaseHealth = statsTemplate.BaseHealth;
+        Speed = statsTemplate.BaseSpeed;
+
         CurrentAttack = statsTemplate.BaseAttack;
+        AttackSpeed = statsTemplate.AttackSpeed;
+        AttackForce = statsTemplate.AttackForce;
     }
 
     public void TakeDamage(float damage)
