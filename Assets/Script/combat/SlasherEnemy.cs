@@ -79,4 +79,9 @@ public class SlasherEnemy : EnemyCombat
         Debug.Log($"{gameObject.name} has been defeated.");
         Destroy(gameObject);
     }
+
+    public override void AttackHeavy(Collider[] targets)
+    {
+        throw new System.NotImplementedException();
+    }
 }

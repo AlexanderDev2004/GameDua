@@ -46,7 +46,7 @@ public abstract class CombatEntity : MonoBehaviour
 
     protected virtual void Update()
     {
-        Debug.Log($"{gameObject.name} Cooldown: {nextAttackTime - Time.time}");
+        // Debug.Log($"{gameObject.name} Cooldown: {nextAttackTime - Time.time}");
         Debug.Log($"{gameObject.name} Health: {entityStats.CurrentHealth}");
 
 
@@ -74,7 +74,7 @@ public abstract class CombatEntity : MonoBehaviour
         // Pastikan cooldown selesai
         if (Time.time < nextAttackTime)
         {
-            Debug.Log($"{gameObject.name} is still in cooldown.");
+            // Debug.Log($"{gameObject.name} is still in cooldown.");
             return;
         }
         
@@ -90,7 +90,7 @@ public abstract class CombatEntity : MonoBehaviour
         }
         
         // calculating next second of attack
-        Debug.Log($"{nextAttackTime} is updated.");
+        // Debug.Log($"{nextAttackTime} is updated.");
         nextAttackTime = Time.time + 1f / entityStats.AttackSpeed;
 
     }
@@ -105,4 +105,6 @@ public abstract class CombatEntity : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(detectionSphere.position, detectionRadius);
     }
+
+    public abstract void AttackHeavy(Collider[] targets);
 }

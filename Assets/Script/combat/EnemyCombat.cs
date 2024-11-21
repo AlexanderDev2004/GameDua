@@ -74,10 +74,6 @@ public abstract class EnemyCombat : CombatEntity
                 break;
         }
 
-        if (detectedColliders.Length > 0)
-        {
-            Attack(detectedColliders);
-        }
     }
 
 
