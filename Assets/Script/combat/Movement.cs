@@ -6,14 +6,14 @@ public class Movement : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] Animator animator;
-    [SerializeField] private float forceOfWalking=100;
-    [SerializeField] private float maxSpeed=10;
-    [SerializeField]private float lerpRate=5.6f;
+    [SerializeField] private float forceOfWalking = 100;
+    [SerializeField] private float maxSpeed = 10;
+    [SerializeField] private float lerpRate = 5.6f;
 
     float horizontalAxis;
     float verticalAxis;
     bool inputPresent;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,28 +25,38 @@ public class Movement : MonoBehaviour
     {
         horizontalAxis = Input.GetAxisRaw("Horizontal");
         verticalAxis = Input.GetAxisRaw("Vertical");
-        
-        if (Mathf.Abs(horizontalAxis) > 0.1f || Mathf.Abs(verticalAxis) > 0.1f)
-        {
-            inputPresent = true;
-        }else
-        {
-            inputPresent = false;
-        }
-        Debug.Log("input present: "+inputPresent);
+
+        inputPresent = Mathf.Abs(horizontalAxis) > 0.1f || Mathf.Abs(verticalAxis) > 0.1f;
+        // Debug.Log("input present: "+inputPresent);
+
+        if (inputPresent) Flip();
     }
 
-    void FixedUpdate() {
+    void Flip()
+    {
+        if (horizontalAxis > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (horizontalAxis < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+    }
+
+    void FixedUpdate()
+    {
         if (inputPresent)
         {
             Walk(horizontalAxis, verticalAxis);
-        }else
+        }
+        else
         {
             Decelerate();
         }
     }
 
-    void Walk(float xAxis,float zAxis)
+    void Walk(float xAxis, float zAxis)
     {
         // traditional velocity imposer
         // rigidbody.velocity = new Vector3(xVector, 0, zVector);
